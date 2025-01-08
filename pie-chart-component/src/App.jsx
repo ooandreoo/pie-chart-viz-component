@@ -1,33 +1,59 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import PieChart from './components/PieChart'
 import './App.css'
 
 function App() {
   const [data, setData] = useState([]);
-  const [value, setValue] = useState("");
+  const [tag, setTag] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
-  const strToArray = (str) => {
-    return str.split(" ").filter(i=>i.length>0).map(i=>Number.parseInt(i));
+  const updateData = (e) => {
+    console.log(e)
+    let newArr = [].concat(data);
+    newArr.push({label: tag, value:quantity});
+    setData(newArr);
+    setTag("");
+    setQuantity(0);
   }
 
-  const updateData =({target:{value}}) => {
-    setValue(value);
-    setData(strToArray(value));
-  }
-  console.log("data",data)
+  const deleteTag = (i) => {
+    console.log("el index",i)
+    let newArr = [].concat(data);
+    newArr.splice(i,1);
+    setData(newArr);
+  };
 
+  const items = data.map((e,i) => 
+    <>
+      <div key={`${i}data`} >{`${e.label} ${e.value}`}</div>
+      <button key={`${i}button`} onClick={() => deleteTag(i)}>X</button>
+    </>
+  );
+
+  console.log(data);
   return (
     <>
       <h1>Pie chart using D3 and React v1.0</h1>
-      <div className="card">
-        <input onChange={updateData}/>
-        <PieChart
-           data={data}
-           width={700}
-           height={300}
-        />
+      
+      <div className='container'>
+        
+        <div className="left-side">
+          <PieChart
+            data={data}
+            width={700}
+            height={300}
+          />
+        </div>
+        <div className='right-side'>
+          <label htmlFor="itag">Tag:</label><br/>
+          <input type="text" id="itag" name="itag" value={tag} onChange={e=>setTag(e.target.value)} /><br/>
+          <label htmlFor="iquantity">Quantity:</label><br/>
+          <input type="text" id="iquantity" name="iquantity" value={quantity} onChange={e=>setQuantity(e.target.value)} />
+          <button onClick={updateData}>Add</button>
+          <>
+            {items}
+          </>
+        </div>
       </div>
     </>
   )

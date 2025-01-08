@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import React, { useRef, useEffect } from 'react';
 
 const PieChart = ({
-    data = [100,200,300,20],
+    data = [{label: "a", value:10},{label: "b", value:5},{label: "c", value:30}],
     width = 800,
     height = 700,
   }) => {
@@ -17,7 +17,7 @@ const PieChart = ({
 
         const color = d3.scaleOrdinal(d3.schemeObservable10);
 
-        const pie = d3.pie();
+        const pie = d3.pie().value(e=>e.value);
 
         const arc = d3.arc()
         .innerRadius(radius/2)
