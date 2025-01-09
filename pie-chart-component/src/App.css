@@ -9,10 +9,8 @@
 }
 
 .container {
-  height: 600px;
-  width: 1800px;
   padding: 1em;
-  display:block;
+  display: flex;
   margin: auto;
 }
 
@@ -28,4 +26,21 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.list {
+  display:block;
+  margin: auto;
+}
+
+.list-item {
+  margin: auto;
+  display: flex;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: #888;
+}
+
+.list-item * {
+  margin: 12px;
 }

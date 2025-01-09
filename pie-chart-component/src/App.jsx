@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PieChart from './components/PieChart'
+import Table from './components/Table';
 import './App.css'
 
 function App() {
@@ -24,10 +25,10 @@ function App() {
   };
 
   const items = data.map((e,i) => 
-    <>
+    <div className='list-item'>
       <div key={`${i}data`} >{`${e.label} ${e.value}`}</div>
       <button key={`${i}button`} onClick={() => deleteTag(i)}>X</button>
-    </>
+    </div>
   );
 
   console.log(data);
@@ -40,7 +41,7 @@ function App() {
         <div className="left-side">
           <PieChart
             data={data}
-            width={700}
+            width={400}
             height={300}
           />
         </div>
@@ -50,9 +51,13 @@ function App() {
           <label htmlFor="iquantity">Quantity:</label><br/>
           <input type="text" id="iquantity" name="iquantity" value={quantity} onChange={e=>setQuantity(e.target.value)} />
           <button onClick={updateData}>Add</button>
-          <>
+          <div className='list'>
             {items}
-          </>
+          </div>
+          <Table
+            headers={['label','value']}
+            data={data}
+          />
         </div>
       </div>
     </>
