@@ -24,14 +24,6 @@ function App() {
     setData(newArr);
   };
 
-  const items = data.map((e,i) => 
-    <div className='list-item'>
-      <div key={`${i}data`} >{`${e.label} ${e.value}`}</div>
-      <button key={`${i}button`} onClick={() => deleteTag(i)}>X</button>
-    </div>
-  );
-
-  console.log(data);
   return (
     <>
       <h1>Pie chart using D3 and React v1.0</h1>
@@ -51,12 +43,10 @@ function App() {
           <label htmlFor="iquantity">Quantity:</label><br/>
           <input type="text" id="iquantity" name="iquantity" value={quantity} onChange={e=>setQuantity(e.target.value)} />
           <button onClick={updateData}>Add</button>
-          <div className='list'>
-            {items}
-          </div>
           <Table
-            headers={['label','value']}
+            headers={['label','value','actions']}
             data={data}
+            deleteItem={(item) => deleteTag(item)}
           />
         </div>
       </div>
