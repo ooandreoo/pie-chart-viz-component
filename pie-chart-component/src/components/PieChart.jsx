@@ -1,8 +1,8 @@
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import React, { useRef, useEffect } from 'react';
 
 const PieChart = ({
-    data = [{label: "a", value:10},{label: "b", value:5},{label: "c", value:30}],
+    data = [{label: 'a', value:10},{label: 'b', value:5},{label: 'c', value:30}],
     width = 800,
     height = 700,
   }) => {
@@ -25,12 +25,27 @@ const PieChart = ({
 
         const arcs = pie(data);
 
-        svg.selectAll('path')
+        svg.selectAll()
         .data(arcs)
         .enter()
         .append('path')
         .attr('fill', (_, i) => color(i))
         .attr('d', arc);
+
+        svg.selectAll()
+        .data(arcs)
+        .enter()
+        .append('text')
+        .attr('text-anchor','middle')
+        .attr('alignment-baseline','middle')
+        .text((d) => `${d.data.label} : ${d.data.value}`)
+        .style('fill', '#ffffff')
+        .attr('transform', (d) => {
+          const [x, y] = arc.centroid(d);
+          return `translate(${x}, ${y})`;
+        });
+
+        
     }, [data, width, height]);
 
     
